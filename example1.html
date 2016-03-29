@@ -1,0 +1,141 @@
+
+
+
+<!doctype html>
+<html>
+<head>
+    <title>UBC CPSC 210 - Example 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="lib/codemirror/processing.css">
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+
+<body>
+
+
+<div class="coderific fullscreen">
+    
+    <textarea type="html" name="HTML" hidden="true">
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src=&#34;js/processing.js&#34;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;canvas id=&#34;canvas&#34;&gt;&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </textarea>
+    
+    <textarea type="css" name="CSS" hidden="true">
+body {
+  margin:0px;
+  padding:0px;
+  overflow:hidden;
+}
+    </textarea>
+    
+    <textarea type="js" name="main">
+public static void main(String[] args) {
+    size(800, 600);
+    background(255);
+    rectMode(CENTER);
+    /*
+    * Once implemented the following instance of Graphic
+    * should draw a face with 2 eye ellipses and 1 rectangle
+    * mouth.
+    */
+    Ellipse leftEye = new Ellipse(25, 25, 20, 10);
+    Ellipse rightEye = new Ellipse(75, 25, 20, 10);
+    Rect mouth = new Rect(50, 75, 40, 10);
+    Graphic graphic = new Graphic(100, 100);
+    graphic.add(leftEye);
+    graphic.add(rightEye);
+    graphic.add(mouth);
+    
+    graphic.draw();
+}
+    </textarea>
+    
+    <textarea type="js" name="Component">
+abstract class Component {
+    float x, y;
+    int w, h;
+    Component parent;
+    void init(float _x, float _y, int _w, int _h) {
+        x = _x; y = _y; w = _w; h = _h;
+    }
+    void translate(float dx, float dy) {
+        x += dx;
+        y += dy;
+    }
+    abstract void draw() {}
+}
+    </textarea>
+    
+    <textarea type="js" name="Graphic">
+
+public class Graphic extends Component {
+    private ArrayList<Component> children = new ArrayList<Component>();
+    Graphic(float x, float y) {
+        init(x, y);
+    }
+    public void draw() {
+        for (int i = 0; i < children.size(); i++)
+            children.get(i).draw();
+    }
+    public void add(Component child) {
+        child.parent = this;
+        children.add(child);
+    }
+    public void remove(Component child) {
+        children.remove(child);
+    }
+}
+    </textarea>
+    
+    <textarea type="js" name="Rect">
+
+public class Rect extends Component {
+    Rect(float x, float y, int w, int h) {
+        init(x, y, w, h);
+    }
+    public void draw() {
+        if (parent)
+            rect(parent.x + x, parent.y + y, w, h);
+        else
+            rect(x, y, w, h);
+    }
+}
+    </textarea>
+    
+    <textarea type="js" name="Ellipse">
+
+public class Ellipse extends Component {
+    Ellipse(float x, float y, int w, int h) {
+        init(x, y, w, h);
+    }
+    public void draw() {
+        if (parent)
+            ellipse(parent.x + x, parent.y + y, w, h);
+        else
+            ellipse(x, y, w, h);
+    }
+}
+    </textarea>
+    
+</div>
+
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+    <script src="lib/codemirror/processing.js"></script>
+    
+    <script src="js/editor.js"></script>
+    <script>
+        EDITOR.init();
+    </script>
+    
+</body>
+</html>

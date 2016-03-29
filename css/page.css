@@ -1,0 +1,235 @@
+
+
+* {
+    box-sizing:border-box;
+}
+
+body {
+    font-family: medium-content-sans-serif-font, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+    margin:0px;
+    width:100%;
+    font-size:1em;
+    color:#444;
+    box-sizing:border-box;
+    background:#FFF;
+}
+
+article {
+    width:736px;
+    margin:auto;
+    margin-top:80px;
+}
+
+/**************************************
+* Nav
+**************************************/
+
+nav {
+    font-size:16px;
+    font-weight:bold;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:auto;
+    background:#FFF;
+    border-bottom:1px solid #DDD;
+    box-shadow: 0px 0px 8px #DDD;
+    z-index:9999;
+}
+nav .title {
+    height:32px;
+    line-height:32px;
+    vertical-align:middle;
+}
+
+nav .bar {
+    display:inline-block;
+    width:100%;
+    padding:16px;
+    background:#FFF;
+}
+
+nav #menu {
+    display:none;
+}
+
+nav .open, nav .close {
+    float:right;
+    border:1px solid #DDD;
+    width:32px;
+    height:32px;
+    text-align:center;
+    line-height:32px;
+    vertical-align:middle;
+}
+nav .close {
+    display:none;
+    margin:16px;
+}
+nav .bar .close {
+    margin:0px;
+}
+
+nav .content {
+    margin:0px 16px;
+    height:0px;
+    width:100%;
+    transition:height 0.2s cubic-bezier(0.0, 0.0, 0.58, 1.0);
+    overflow:hidden;
+}
+
+nav .content .row {
+    margin-top:16px;
+}
+/**************************************
+* Menu Open
+**************************************/
+nav #menu:checked ~ .content {
+    height:136px;
+}
+nav #menu:checked ~ .bar .open {
+    display:none;
+}
+nav #menu:checked ~ .close {
+    display:block;
+}
+nav #menu:checked ~ .bar .close {
+    display:block;
+}
+
+/**************************************
+* Nav Grid System
+**************************************/
+
+nav .row {
+    clear:both;
+}
+
+nav .col {
+    width:33%;
+    float:left;
+}
+
+/**************************************
+* Nav Type
+**************************************/
+nav ul {
+    padding-left:none;
+}
+nav .cat li {
+    font-weight:normal;
+}
+
+
+/**************************************
+* Type
+**************************************/
+
+article h1, article h2, article h3 {
+    margin:16px 0px;
+    line-height:2em;
+}
+
+article a, article p, article ul, article ol {
+    margin:16px 0px;
+    font-family: medium-content-serif-font, Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-size:1.2em;
+    letter-spacing:0.04em;
+    line-height:1.8em;
+    word-wrap: break-word;
+}
+
+article ul, article ol {
+    margin:16px;
+    padding-left:1em;
+}
+
+article h1 {
+    font-size:3em;
+}
+
+article h2 {
+    font-size:2em;
+}
+
+article h3 {
+    font-size:1.4em;
+    line-height:1.2em;
+}
+
+article .center {
+    width:100%;
+    text-align:center;
+}
+
+article cite {
+    font-style:normal;
+    color:#888;
+    font-size:0.8em;
+    display:block;
+    text-align:center;
+    margin:4px 0px;
+    margin-bottom:32px;
+}
+
+article blockquote, article mark {
+    color:#888;
+    font-family: medium-content-serif-font, Georgia, Cambria, 'Times New Roman', Times, serif;
+    margin:32px 0px;
+    padding:16px 32px;
+    font-size:1.5em;
+    border-left:solid 2px #DDD;
+    border-right:solid 2px #DDD;
+}
+
+article blockquote {
+    margin-bottom:4px;
+}
+
+article mark {
+    color:#444;
+    background:#FEE;
+    display:block;
+    border:solid 2px #DDD;
+}
+
+article iframe {
+    border:1px solid #DDD;
+}
+
+/**************************************
+* Footer
+**************************************/
+
+footer {
+    width:100%;
+    height:64px;
+    background:#FFF;
+    border-top:1px solid #DDD;
+    box-shadow: 0px 0px 8px #DDD;
+    margin-top:32px;
+}
+
+/**************************************
+* Media
+**************************************/
+
+@media (max-width: 767px) {
+    body {
+        font-size:0.8em;
+    }
+    article {
+        width:auto;
+        margin-left:16px;
+        margin-right:16px;
+    }
+    nav .col {
+        width:100%;
+        float:none;
+    }
+    article iframe {
+        width:100%;
+        height:400px;
+    }
+}

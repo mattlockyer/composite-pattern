@@ -1,0 +1,44 @@
+
+
+
+<!doctype html>
+<html>
+<head>
+    <title>UBC CPSC 210 - Sketch 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="css/sketch.css">
+
+</head>
+
+<body>
+    
+    <canvas id="sketch" width="800" height="600"></canvas>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="js/sketch.js"></script>
+    <script>
+        $(function() {
+            var canvas = $('#sketch');
+            var img = window.location.search.split('=')[1];
+            console.log(img);
+            if (img) {
+                canvas.css({
+                    background:'url(' + img + ')',
+                    'background-size':'contain',
+                    'background-repeat':'no-repeat'
+                });
+            }
+            canvas.sketch({
+                defaultColor:'#DD0000',
+                defaultSize:6
+            });
+            canvas.on('dblclick', (e) => {
+                canvas.sketch().actions = [];
+                canvas[0].getContext('2d').clearRect(0, 0, canvas[0].width, canvas[0].height);
+            });
+        });
+    </script>
+    
+</body>
+</html>

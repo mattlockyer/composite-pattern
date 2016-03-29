@@ -1,0 +1,47 @@
+
+
+
+<!doctype html>
+<html>
+<head>
+    <title>UBC CPSC 210 - Example 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="lib/codemirror/processing.css">
+    <link rel="stylesheet" href="css/editor.css">
+
+</head>
+
+<body>
+
+
+<div class="coderific" notabs="true">
+    
+    <textarea type="js" name="Component">
+abstract class Component {
+    float x, y;
+    int w, h;
+    Component parent;
+    void init(float _x, float _y, int _w, int _h) {
+        x = _x; y = _y; w = _w; h = _h;
+    }
+    void translate(float dx, float dy) {
+        x += dx;
+        y += dy;
+    }
+    abstract void draw() {} //implement in subclass
+}</textarea>
+</div>
+
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+    <script src="lib/codemirror/processing.js"></script>
+    
+    <script src="js/editor.js"></script>
+    <script>
+        EDITOR.init();
+    </script>
+    
+</body>
+</html>

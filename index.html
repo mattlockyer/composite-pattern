@@ -1,0 +1,301 @@
+
+
+
+<!doctype html>
+<html>
+<head>
+    <title>CPSC 210 - Composite Pattern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    <link rel="stylesheet" href="reveal/css/reveal.css">
+	<link rel="stylesheet" href="reveal/css/theme/black.css" id="theme">
+	
+    <style>
+        iframe {
+            overflow:hidden !important;
+        }
+        .highlight {
+            color:#EE8822;
+        }
+        .narrow {
+            width:900px !important;
+        }
+        .grow {
+            margin:32px 0px !important;
+        }
+    </style>
+	
+</head>
+
+<body>
+    
+<div class="reveal">
+<div class="slides">
+    <section>
+        <h2>The Composite Design Pattern</h2>
+        <ul>
+            <li>Announcements</li>
+            <li>Recap: Design Patterns</li>
+            <li>Overview</li>
+            <li>Design: Component, Leaf, Composite</li>
+            <li>The Problem</li>
+            <li>Motivation</li>
+            <li>Challenge: UML and Implementation</li>
+            <li>Discussion</li>
+        </ul>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Announcements</h2>
+            <ul>
+                <li>Midterm Grades Posted on Canvas</li>
+                <li>Quiz Next Thursday</li>
+            </ul>
+        </section>
+        <section>
+            <iframe src="https://calendar.google.com/calendar/embed?src=t45tgo14lsrvk4u4mcu5q33jp8%40group.calendar.google.com&ctz=America/Vancouver"
+            style="border: 0" width="900" height="600" frameborder="0" scrolling="no"></iframe>
+        </section>
+    </section>
+    
+    <section>
+        <h2>Recap: Design Patterns</h2>
+        <ul>
+            <li class="fragment">General Solution to Common Problem</li>
+            <li class="fragment">Template vs. Implementation</li>
+            <li class="fragment">UML: Relationships and Interactions</li>
+        </ul>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Overview: Composite Pattern</h2>
+            <blockquote>
+"Compose objects into tree structures to represent part-whole hierarchies.
+Composite lets clients treat individual objects and compositions of objects
+uniformly."
+            </blockquote>
+            <cite>Design Patterns - Elements of Reusable Object-Oriented Software</cite>
+        </section>
+        <section>
+            <h2>Tree Structures?</h2>
+            <h2>Part-Whole Hierarchies?</h2>
+            <p>We'll get back to these in a moment...</p>
+        </section>
+    </section>
+    
+    
+    <section>
+        <section>
+            <h2>Design</h2>
+            <iframe width="800" height="500" src="sketch1.html?img=img/comp.png"></iframe>
+        </section>
+        <section>
+            <h2>Component</h2>
+            <ul>
+                <li class="fragment grow">Abstraction for all components</li>
+                <li class="fragment grow">Declares interface for objects in the pattern</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Leaf</h2>
+            <ul>
+                <li class="fragment grow">Implements ALL Component class methods</li>
+                <li class="fragment grow">Primitive component with NO children</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Composite</h2>
+            <ul class="narrow">
+                <li class="fragment grow">Implements ALL Component class methods - generally accomplished through delegation to children</li>
+                <li class="fragment grow">Has a collection of children</li>
+                <li class="fragment grow">Implements methods to manipulate children</li>
+            </ul>
+        </section>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Problem</h2>
+            <p class="fragment">Having distinct interfaces for every leaf and composite leads to unnecessary complexity in our applications.</p>
+            <p class="fragment">The pattern addresses a "high fan out" problem where one interface needs to be aware of several other interfaces.
+            <p class="fragment">This usually results in run-time type checking (BAD) and other code smells.</p>
+        </section>
+        <section>
+            <h2>Why Bother?</h2>
+            <p class="fragment">Recursive Data Structures (ex: Files and Folders) are examples of composite objects created from primitive leaf components and other composites.</p>
+            <p class="fragment">If our user treats these objects as the same... (open, read, write) then so can our application code, and...</p>
+            <p class="fragment">These objects can likely implement the same interface!</p>
+        </section>
+        <section>
+            <h2>Advantages</h2>
+            <p class="fragment">A successful implementation results in "1-1" or "many to 1" relationships with the Component class interface.</p>
+            <p class="fragment">Application code can call a method of a component, for example: "print" or "copy" without worrying whether the type is leaf or composite.</p>
+        </section>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Example: Text Editor</h2>
+            <p>
+                <span class="fragment">Objects:</span>
+                <span class="fragment highlight">word, sentence</span>
+            </p>
+            <p class="fragment">A sentence is simply a composite of words and each word object has a local position inside the sentence.</p>
+            <p class="fragment">We can copy, move, delete or display the whole sentence with one method call in our application code, and the sentence object will delegate these method calls to it's children, the word objects.</p>
+            <p class="fragment">But wait! What about paragraphs...?</p>
+        </section>
+        <section>
+            <h2>Example: GUI</h2>
+            <iframe width="800" height="500" src="sketch1.html?img=img/menu.png"></iframe>
+        </section>
+        <section>
+            <h2>Example: Graphics</h2>
+            <iframe width="800" height="500" src="sketch1.html?img=img/graphic.png"></iframe>
+        </section>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Implementation Quiz</h2>
+            <ol>
+                <li class="fragment">
+                    Use an <span class="fragment highlight">abstract</span> class to represent <span class="fragment highlight">leaf</span> AND <span class="fragment highlight">composite</span> objects.
+                </li>
+                <li class="fragment">
+                    Store a collection of <span class="fragment highlight">leaf objects</span> in the <span class="fragment highlight">composite</span> class.
+                </li>
+                <li class="fragment">
+                    Define functionality in the <span class="fragment highlight">composite</span> class to manage the collection of <span class="fragment highlight">leaf</span> objects.
+                </li>
+            </ol>
+        </section>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Challenge</h2>
+            <p class="fragment">Design and implement a graphics engine to render ellipses, rectangles and graphics (composite group of either ellipses or rectangles).</p>
+            <img class="fragment" src="img/cactus-freak.jpg" width="300px" />
+        </section>
+        <section>
+            <h2>Requirements</h2>
+            <p>Application code should be able to do the following:</p>
+            <ul>
+                <li class="fragment grow">create objects of type: Ellipse, Rectangle and Graphic</li>
+                <li class="fragment grow">add and remove objects from a Graphic instance</li>
+                <li class="fragment grow">draw objects from any type</li>
+            </ul>
+        </section>
+        <section>
+            <h2>UML Design Challenge</h2>
+            <div style="float:left; width:400px">
+                <p class="highlight">abstract class</p>
+                <img src="img/uml.png" width="550px" />
+                <!--
+                <iframe width="800" height="300" src="example-component.html"></iframe>
+                -->
+            </div>
+            <div style="float:left; width:500px; margin-top:-32px;transform:scale(0.6)">
+                <h2>Requirements</h2>
+                <ul>
+                    <li>create Ellipse</li>
+                    <li>create Rectangle</li>
+                    <li>create Graphic</li>
+                    <li>add/remove from Graphic</li>
+                    <li>draw object</li>
+                    <li>draw Graphic object</li>
+                </ul>
+            </div>
+            
+        </section>
+    </section>
+    
+    <section>
+        <h2>Design - Discussion</h2>
+        <iframe width="800" height="500" src="sketch1.html"></iframe>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Implementation</h2>
+            <p class="fragment">Using our design, we will write a few lines of code to implement it.</p>
+            <p class="fragment">Again we will extend the abstract class Component.</p>
+        </section>
+        
+        <section>
+            <iframe width="800" height="600" src="example-challenge.html"></iframe>
+        </section>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Solution Walkthrough</h2>
+            <img class="fragment" src="img/cactus-bird.jpg" width="300px" />
+        </section>
+        <section>
+            <iframe width="800" height="600" src="example1.html"></iframe>
+        </section>
+    </section>
+    
+    <section>
+        <section>
+            <h2>Success</h2>
+            <p class="fragment">Congratulations you implemented the Composite Pattern!</p>
+            <img class="fragment" src="img/cactus-star.jpg" width="250px" />
+        </section>
+        <section>
+            <h2>Tree Structures and Part Whole Hierarchies</h2>
+            <p class="fragment">Remember these terms?</p>
+            <p class="fragment">Well our graphics example defines a tree structure though composition, this is also sometimes referred to as a "scene graph" in graphics engines.</p>
+            <p class="fragment">The composition structure also defines a hierarchy of parts in the context of the composite whole.</p>
+        </section>
+        <section>
+            <h2>Finer Points</h2>
+            <div class="fragment">
+                <h4>Parent References</h4>
+                <p>Where should we define parent references (if any)?</p>
+            </div>
+            <div class="fragment">
+                <h4>Transparency vs. Security</h4>
+                <p>Where do we define our methods for manipulating children?</p>
+                <p>Remember the graphics example from earlier?</p>
+            </div>
+
+        </section>
+    </section>
+    <section>
+        <h1>Questions</h1>
+    </section>
+    <section>
+        <h1>Thank You</h1>
+    </section>
+            
+	<script src="reveal/lib/js/head.min.js"></script>
+    <script src="reveal/js/reveal.js"></script>
+
+		<script>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				// Optional reveal.js plugins
+				// dependencies: [
+				// 	{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+				// 	{ src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				// 	{ src: 'reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+				// 	{ src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				// 	{ src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+				// 	{ src: 'reveal/plugin/notes/notes.js', async: true }
+				// ]
+			});
+		</script>
+		
+</body>
+</html>
